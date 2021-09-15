@@ -1,0 +1,25 @@
+specVersion: 0.0.2
+description: Indexing all Ethereum Block data
+repository: https://github.com/blocklytics/ethereum-blocks
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ConverterRegistryContract
+    network: mainnet
+    source:
+      address: "0xec95b77a1dA57677BD03e1Ebe858f9F1D8922752"
+      abi: ConverterRegistryContract
+      startBlock: 11800000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - ConverterAddition
+      abis:
+        - name: ConverterRegistryContract
+          file: ./abis/ConverterRegistryContract.json
+      blockHandlers:
+        - handler: handleBlock
+      file: ./src/mappings/blocks.ts
